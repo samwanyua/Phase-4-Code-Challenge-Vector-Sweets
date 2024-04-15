@@ -1,14 +1,12 @@
+from app import app, db
+from models import Vendor, Sweet, VendorSweet
 from random import choice as rc, randrange
-
-from app import app
-from models import db, Sweet, Vendor, VendorSweet
 
 if __name__ == '__main__':
     with app.app_context():
         print("Clearing db...")
-        Vendor.query.delete()
-        Sweet.query.delete()
-        VendorSweet.query.delete()
+        db.drop_all()
+        db.create_all()
 
         print("Seeding vendors...")
         vendors = [
@@ -40,7 +38,7 @@ if __name__ == '__main__':
         for sweet in sweets:
             vendor = rc(vendors)
             vendor_sweets.append(
-                VendorSweet(sweet=sweet, vendor=vendor, price = randrange(50))
+                VendorSweet(sweet=sweet, vendor=vendor, price=randrange(50))
             )
         db.session.add_all(vendor_sweets)
         db.session.commit()
