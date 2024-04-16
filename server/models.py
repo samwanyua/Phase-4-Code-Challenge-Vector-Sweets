@@ -11,7 +11,7 @@ class Sweet(db.Model, SerializerMixin):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
 
-    vendor_sweets = db.relationship("VendorSweet", back_populates="sweet", lazy="dynamic")
+    vendor_sweets = db.relationship("VendorSweet", back_populates="sweet")
 
     def __repr__(self):
         return f'<Sweet {self.name}>'
@@ -22,7 +22,7 @@ class Vendor(db.Model, SerializerMixin):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
 
-    vendor_sweets = db.relationship("VendorSweet", back_populates="vendor", lazy="dynamic")
+    vendor_sweets = db.relationship("VendorSweet", back_populates="vendor")
 
     def __repr__(self):
         return f'<Vendor {self.name}>'
